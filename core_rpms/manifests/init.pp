@@ -1,4 +1,5 @@
 class core_rpms {
+####Added for nslookup etc
 	package { 'mlocate-0.22.2-4.el6.x86_64': ensure => "installed" }
 	package { 'setup-2.8.14-20.el6_4.1.noarch': ensure => "installed" }
 	package { 'basesystem-10.0-4.el6.noarch': ensure => "installed" }
