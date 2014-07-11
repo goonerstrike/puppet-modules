@@ -1,0 +1,19 @@
+### /etc/openldap/slapd.d/cn\=config/olcDatabase\=\{1\}monitor.ldif
+dn: olcDatabase={1}monitor
+objectClass: olcDatabaseConfig
+olcDatabase: {1}monitor
+olcAccess: {0}to *  by dn.base="gidNumber=0+uidNumber=0,cn=peercred,cn=externa
+ l,cn=auth" read  by dn.base="cn=Manager,dc=my-domain,dc=com" read  by * none
+olcAddContentAcl: FALSE
+olcLastMod: TRUE
+olcMaxDerefDepth: 15
+olcReadOnly: FALSE
+olcSyncUseSubentry: FALSE
+olcMonitoring: FALSE
+structuralObjectClass: olcDatabaseConfig
+entryUUID: 6ae6868c-9b59-1033-8f51-8738c01cad2e
+creatorsName: cn=config
+createTimestamp: 20140709020643Z
+entryCSN: 20140709020643.505338Z#000000#000#000000
+modifiersName: cn=config
+modifyTimestamp: 20140709020643Z
