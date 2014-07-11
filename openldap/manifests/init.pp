@@ -22,8 +22,8 @@ $DN	= 'dc=tmalab,dc=local',
 		group		=> ldap,
 	    source      => 'puppet:///modules/openldap/olcDatabase={2}bdb.ldif',
 	    require     => [ Package['openldap-servers'],
-							Package['migrationtools'],
-						 		Package['mlocate'] ]
+					     Package['migrationtools'],
+						 Package['mlocate'] ]
 	}
     
 	file { 'olcDatabase={1}monitor.ldif':
@@ -34,8 +34,8 @@ $DN	= 'dc=tmalab,dc=local',
         group       => ldap,
         source      => 'puppet:///modules/openldap/olcDatabase={1}monitor.ldif',
         require     => [ Package['openldap-servers'],
-                            Package['migrationtools'],
-                                Package['mlocate'] ]
+                         Package['migrationtools'],
+                         Package['mlocate'] ]
     }
 	
 	service { 'slapd':
@@ -43,18 +43,19 @@ $DN	= 'dc=tmalab,dc=local',
 		enable		=> true,
 		ensure		=> running,
 		subscribe	=> [ File['olcDatabase={2}bdb.ldif'],
-							File['olcDatabase={1}monitor.ldif'], ]
+						 File['olcDatabase={1}monitor.ldif'], ]
 	}
 
 	exec { "openssl req  \
--new \
--newkey rsa:4096 \
--days 365 \
--nodes \
--x509 \
--subj \"/C=US/ST=Virginia/L=Springfield/O=IT/CN=tma-ldp.tmalab.local\" \
--keyout \"/etc/pki/tls/certs/tma-ldpkey.pem\" -out \"/etc/pki/tls/certs/tma-ldp.pem\"":
+	-new \
+	-newkey rsa:4096 \
+	-days 365 \
+	-nodes \
+	-x509 \
+	-subj \"/C=US/ST=Virginia/L=Springfield/O=IT/CN=tma-ldp.tmalab.local\" \
+	-keyout \"/etc/pki/tls/certs/tma-ldpkey.pem\" -out \"/etc/pki/tls/certs/tma-ldp.pem\"":
 		path		=> '/usr/bin',
-		onlyif		=> 'test ! -f /etc/pki/tls/certs/tma-ldpkey.pem',
+		creates		=> [ '/etc/pki/tls/certs/tma-ldpkey.pem',
+       					 '/etc/pki/tls/certs/tma-ldpkey.pem' ]
 	}
 }
