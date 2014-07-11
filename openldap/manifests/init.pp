@@ -1,5 +1,5 @@
 class openldap ( 
-$DN					= 'dc=tmalab,dc=local',
+$DN	= 'dc=tmalab,dc=local',
 ) {
 
 	package { 'openldap-servers': 
