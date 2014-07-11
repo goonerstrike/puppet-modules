@@ -52,8 +52,9 @@ $DN	= 'dc=tmalab,dc=local',
 -days 365 \
 -nodes \
 -x509 \
--subj \"/C=US/ST=Virginia/L=Springfield/O=IT/CN=tma-ldpclient.tmalab.local\" 
--keyout \"/etc/pki/tls/certs/tma-ldpclientkey.pem\" -out \"/etc/pki/tls/certs/tma-ldpclient.pem\"":
-		path		=> '/usr/bin'
+-subj \"/C=US/ST=Virginia/L=Springfield/O=IT/CN=tma-ldp.tmalab.local\" \
+-keyout \"/etc/pki/tls/certs/tma-ldpkey.pem\" -out \"/etc/pki/tls/certs/tma-ldp.pem\"":
+		path		=> '/usr/bin',
+		onlyif		=> 'test ! -f /etc/pki/tls/certs/tma-ldpkey.pem',
 	}
 }
