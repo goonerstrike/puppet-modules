@@ -1,0 +1,48 @@
+## /etc/openldap/slapd.d/cn\=config/olcDatabase\=\{2\}bdb.ldif
+dn: olcDatabase={2}bdb
+objectClass: olcDatabaseConfig
+objectClass: olcBdbConfig
+olcDatabase: {2}bdb
+olcSuffix: <%= @ldap_dn %>
+olcAddContentAcl: FALSE
+olcLastMod: TRUE
+olcMaxDerefDepth: 15
+olcReadOnly: FALSE
+olcRootDN: cn=Manager,<%= @ldap_dn %>
+olcSyncUseSubentry: FALSE
+olcMonitoring: TRUE
+olcDbDirectory: /var/lib/ldap
+olcDbCacheSize: 1000
+olcDbCheckpoint: 1024 15
+olcDbNoSync: FALSE
+olcDbDirtyRead: FALSE
+olcDbIDLcacheSize: 0
+olcDbIndex: objectClass pres,eq
+olcDbIndex: cn pres,eq,sub
+olcDbIndex: uid pres,eq,sub
+olcDbIndex: uidNumber pres,eq
+olcDbIndex: gidNumber pres,eq
+olcDbIndex: mail pres,eq,sub
+olcDbIndex: ou pres,eq,sub
+olcDbIndex: loginShell pres,eq
+olcDbIndex: sn pres,eq,sub
+olcDbIndex: givenName pres,eq,sub
+olcDbIndex: memberUid pres,eq,sub
+olcDbIndex: nisMapName pres,eq,sub
+olcDbIndex: nisMapEntry pres,eq,sub
+olcDbLinearIndex: FALSE
+olcDbMode: 0600
+olcDbSearchStack: 16
+olcDbShmKey: 0
+olcDbCacheFree: 1
+olcDbDNcacheSize: 0
+structuralObjectClass: olcBdbConfig
+entryUUID: 6ae690f0-9b59-1033-8f52-8738c01cad2e
+creatorsName: cn=config
+createTimestamp: 20140709020643Z
+entryCSN: 20140709020643.505338Z#000000#000#000000
+modifiersName: cn=config
+modifyTimestamp: 20140709020643Z
+olcRootPW: {SSHA}OHEJpI6cixvgyRjYJZPLeiLTOhNPnfeo
+olcTLSCertificateFile: /etc/pki/tls/certs/tma-ldp.pem
+olcTLSCertificateKeyFile: /etc/pki/tls/certs/tma-ldpkey.pem

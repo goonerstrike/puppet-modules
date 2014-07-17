@@ -42,8 +42,7 @@ $DN	= 'dc=tmalab,dc=local',
 		name		=> 'slapd',
 		enable		=> true,
 		ensure		=> running,
-		subscribe	=> [ File['olcDatabase={2}bdb.ldif'],
-						 File['olcDatabase={1}monitor.ldif'], ]
+		subscribe	=> File['/etc/pki/tls/certs'],
 	}
 
 	exec { "openssl req  \
@@ -57,5 +56,12 @@ $DN	= 'dc=tmalab,dc=local',
 		path		=> '/usr/bin',
 		creates		=> [ '/etc/pki/tls/certs/tma-ldpkey.pem',
        					 '/etc/pki/tls/certs/tma-ldpkey.pem' ]
+	}
+	
+	file { '/etc/pki/tls/certs':
+		ensure		=> directory,
+		recurse		=> true,
+		owner		=> root,
+		group		=> ldap,
 	}
 }
