@@ -1,5 +1,5 @@
 class openldap ( 
-$DN	= 'dc=tmalab,dc=local',
+$DN = 'dc=tmalab,dc=local',
 ) {
 
 	package { 'openldap-servers': 
@@ -42,7 +42,7 @@ $DN	= 'dc=tmalab,dc=local',
 		name		=> 'slapd',
 		enable		=> true,
 		ensure		=> running,
-		subscribe	=> File['/etc/pki/tls/certs'],
+		subscribe	=> File['olcDatabase={1}monitor.ldif'],
 	}
 
 	exec { "openssl req  \
@@ -54,6 +54,7 @@ $DN	= 'dc=tmalab,dc=local',
 	-subj \"/C=US/ST=Virginia/L=Springfield/O=IT/CN=tma-ldp.tmalab.local\" \
 	-keyout \"/etc/pki/tls/certs/tma-ldpkey.pem\" -out \"/etc/pki/tls/certs/tma-ldp.pem\"":
 		path		=> '/usr/bin',
+		require     => Package['openldap-servers'],
 		creates		=> [ '/etc/pki/tls/certs/tma-ldpkey.pem',
        					 '/etc/pki/tls/certs/tma-ldpkey.pem' ]
 	}
@@ -63,5 +64,16 @@ $DN	= 'dc=tmalab,dc=local',
 		recurse		=> true,
 		owner		=> root,
 		group		=> ldap,
+		require     => [ Package['openldap-servers'],
+                         Package['migrationtools'],
+                         Package['mlocate'] ]
+
+	}
+	
+	file { '/usr/share/migrationtools/migrate_common.ph':
+		path		=> '/usr/share/migrationtools/migrate_common.ph',
+		ensure		=> file,
+		content		=> template('openldap/migrate_common.erb'),
+		require		=> Package['migrationtools'],
 	}
 }
