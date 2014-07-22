@@ -51,10 +51,11 @@ $DN = 'dc=tmalab,dc=local',
 	-days 365 \
 	-nodes \
 	-x509 \
-	-subj \"/C=US/ST=State/L=City/O=IT/CN=tma-ldp.tmalab.local\" \
-	-keyout \"/etc/pki/tls/certs/ldapkey.pem\" -out \"/etc/pki/tls/certs/ldap.pem\"":
+	-subj \"/C=US/ST=Virginia/L=Springfield/O=IT/CN=tma-ldp.tmalab.local\" \
+	-keyout \"/etc/pki/tls/certs/tma-ldpkey.pem\" -out \"/etc/pki/tls/certs/tma-ldp.pem\"":
 		path		=> '/usr/bin',
-		require     => Package['openldap-servers'],
+		onlyif		=> ['test ! -f /etc/pki/tls/certs/ldapkey.pem, \
+test ! -f /etc/pki/tls/certs/ldap.pem'],
 		creates		=> [ '/etc/pki/tls/certs/ldapkey.pem',
        					 '/etc/pki/tls/certs/ldap.pem' ]
 	}
